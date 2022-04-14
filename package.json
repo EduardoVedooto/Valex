@@ -2,7 +2,8 @@
   "name": "valex",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/teles-tarcisio/Valex/issues"
   },
-  "homepage": "https://github.com/teles-tarcisio/Valex#readme"
+  "homepage": "https://github.com/teles-tarcisio/Valex#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
 }
