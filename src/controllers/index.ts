@@ -1,5 +1,5 @@
-import { searchCompany } from './companiesController.js';
+import { createNewCard } from './companiesController.js';
 
 export {
-  searchCompany,
+  createNewCard,
 };

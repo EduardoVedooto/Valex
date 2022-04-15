@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
 // import middlewareA from .../middlewares/...
-import { searchCompany } from '../controllers/index.js';
+import { createNewCard } from '../controllers/index.js';
 
 const companiesRouter = Router();
 
-companiesRouter.get('/companies', searchCompany);
+companiesRouter.get('/companies', createNewCard);
 
 export default companiesRouter;
