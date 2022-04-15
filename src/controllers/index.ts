@@ -1,4 +1,4 @@
-import { createNewCard } from './companiesController.js';
+import { createNewCard } from './cardsController.js';
 
 export {
   createNewCard,

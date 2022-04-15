@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import companiesRouter from './companiesRouter.js';
+import cardsRouter from './cardsRouter.js';
 
 const mainRouter = Router();
-mainRouter.use(companiesRouter);
+mainRouter.use(cardsRouter);
 
 export default mainRouter;
