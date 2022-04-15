@@ -1,5 +1,4 @@
-
-import Joi, { number } from 'joi';
+import Joi from 'joi';
 
 const cardDataSchema = Joi.object({
   employeeId: Joi.number().min(1).required(),
