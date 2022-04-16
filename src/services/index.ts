@@ -1,7 +1,7 @@
-import checkCardType from './checkCardType.js';
-import checkExistentEmployee from './checkExistentEmployee.js';
+import * as cardServices from './cardServices.js';
+import * as employeeServices from './employeeServices.js';
 
 export {
-  checkCardType,
-  checkExistentEmployee,
+  cardServices,
+  employeeServices,
 };
