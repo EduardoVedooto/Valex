@@ -5,6 +5,6 @@ import { createNewCard } from '../controllers/index.js';
 
 const cardsRouter = Router();
 
-cardsRouter.post('/cards/new-card', checkValidAPIKey, cardDataJoiMiddleware, /* newCardValidation, */ createNewCard);
+cardsRouter.post('/cards/new-card', checkValidAPIKey, cardDataJoiMiddleware, createNewCard);
 
 export default cardsRouter;
