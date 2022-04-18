@@ -14,13 +14,23 @@ export async function createNewCard(req: Request, res: Response) : Promise<Objec
     throw { type: 'notFound', message: 'employee does not exist' };
   }
 
-  // somente um tipo de cartão por empregado
-  /*
-  const uniqueCardType = await cardServices.checkEmployeeCards(cardData.employeeId, cardData.type);
-  console.log(uniqueCardType, '<<<<');
-  */
+  const validCardEmitter = cardServices.checkCardEmitter(cardData.number);
+  if (!validCardEmitter) {
+    throw { type: 'unprocessable', message: 'invalid card number' };
+  }
 
-  // cartão só pode ser mastercard
+  const employeeCardsByType = await cardServices.checkEmployeeCards(cardData.employeeId, cardData.type);
+  if (employeeCardsByType !== undefined) {
+    throw {
+      type: 'unprocessable',
+      message: 'employee already has card of this type',
+    }
+  }
+
+  const uniqueCard = await cardServices.checkUniqueCard(cardData.number);
+  if (uniqueCard) {
+    throw { type: 'conflict', message: 'card number already exists' };
+  }
 
   return res.status(200).send({ companyData, cardData });
 }
