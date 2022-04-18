@@ -24,7 +24,7 @@ export async function createNewCard(req: Request, res: Response) : Promise<Objec
     throw {
       type: 'unprocessable',
       message: 'employee already has card of this type',
-    }
+    };
   }
 
   const uniqueCard = await cardServices.checkUniqueCard(cardData.number);
@@ -32,5 +32,8 @@ export async function createNewCard(req: Request, res: Response) : Promise<Objec
     throw { type: 'conflict', message: 'card number already exists' };
   }
 
-  return res.status(200).send({ companyData, cardData });
+  const formattedNameOnCard = cardServices.formatCardName(cardData.cardholderName);
+  cardData.cardholderName = formattedNameOnCard;
+
+  return res.status(200).send(res.locals);
 }

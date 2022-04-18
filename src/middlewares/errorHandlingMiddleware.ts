@@ -12,5 +12,5 @@ export default function errorHandlingMiddleware(err: any, req: Request, res: Res
     return res.status(serviceErrorToStatusCode[err.type]).send(err.message);
   }
 
-  return res.sendStatus(500);
+  return res.status(500).send(err);
 }

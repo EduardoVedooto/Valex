@@ -1,6 +1,7 @@
 import { cardRepository } from '../repositories/index.js';
 import { TransactionTypes } from '../repositories/cardRepository.js';
 import { validateCard } from '../utils/cardNumberValidation.js';
+import { splitAndUpperCase, filterNamesBySize } from '../utils/cardNameFormatter.js';
 
 const cardTypes: string[] = [
   'education',
@@ -32,4 +33,12 @@ export async function checkUniqueCard(cardNumber: string) : Promise<Object> {
   const cardByNumber = await cardRepository.findByCardNumber(cardNumber);
 
   return cardByNumber;
+}
+
+export function formatCardName(nameOnCard: string) : string {
+  const splittedNames = splitAndUpperCase(nameOnCard);
+
+  const formattedNames = filterNamesBySize(splittedNames);
+
+  return formattedNames;
 }
