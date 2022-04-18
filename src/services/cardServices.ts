@@ -2,6 +2,7 @@ import { cardRepository } from '../repositories/index.js';
 import { TransactionTypes } from '../repositories/cardRepository.js';
 import { validateCard } from '../utils/cardNumberValidation.js';
 import { splitAndUpperCase, filterNamesBySize } from '../utils/cardNameFormatter.js';
+import { CardInsertData } from '../repositories/cardRepository.js';
 
 const cardTypes: string[] = [
   'education',
@@ -23,7 +24,8 @@ export function checkCardEmitter(cardNumber: string) : boolean {
   return validateCard(cardNumber);
 }
 
-export async function checkEmployeeCards(employeeId: number, cardType: TransactionTypes) : Promise<Object> {
+export async function checkEmployeeCards(employeeId: number, cardType: TransactionTypes)
+: Promise<Object> {
   const employeeCards = await cardRepository.findByTypeAndEmployeeId(cardType, employeeId);
 
   return employeeCards;
@@ -41,4 +43,8 @@ export function formatCardName(nameOnCard: string) : string {
   const formattedNames = filterNamesBySize(splittedNames);
 
   return formattedNames;
+}
+
+export async function insertNewCard(newCardData: CardInsertData) : Promise<any> {
+  await cardRepository.insert(newCardData);
 }

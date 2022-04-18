@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
+import dayjs from 'dayjs';
 import { cardServices, employeeServices } from '../services/index.js';
 
 export async function createNewCard(req: Request, res: Response) : Promise<Object> {
-  const { companyData, cardData } = res.locals;
+  const { cardData } = res.locals;
 
   const validCardType = cardServices.checkCardType(cardData.type);
   if (!validCardType) {
@@ -35,5 +37,14 @@ export async function createNewCard(req: Request, res: Response) : Promise<Objec
   const formattedNameOnCard = cardServices.formatCardName(cardData.cardholderName);
   cardData.cardholderName = formattedNameOnCard;
 
-  return res.status(200).send(res.locals);
+  cardData.expirationDate = dayjs().add(5, 'y').format('MM-YY');
+
+  const hashedCVC = bcrypt.hashSync(cardData.securityCode, 10);
+  cardData.securityCode = hashedCVC;
+
+  cardData.password = null;
+
+  await cardServices.insertNewCard(cardData);
+
+  return res.sendStatus(201);
 }

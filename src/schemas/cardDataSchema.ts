@@ -5,8 +5,6 @@ const cardDataSchema = Joi.object({
   number: Joi.string().trim().length(16).required(),
   cardholderName: Joi.string().trim().max(64).required(),
   securityCode: Joi.string().trim().min(3).max(4).required(),
-  expirationDate: Joi.string().trim().length(5).required(),
-  password: Joi.string().trim(),
   isVirtual: Joi.boolean().required(),
   originalCardId: Joi.number().min(1).allow(null),
   isBlocked: Joi.boolean().required(),
