@@ -1,8 +1,8 @@
+import dayjs from 'dayjs';
 import { cardRepository } from '../repositories/index.js';
-import { TransactionTypes } from '../repositories/cardRepository.js';
+import { TransactionTypes, CardInsertData } from '../repositories/cardRepository.js';
 import { validateCard } from '../utils/cardNumberValidation.js';
 import { splitAndUpperCase, filterNamesBySize } from '../utils/cardNameFormatter.js';
-import { CardInsertData } from '../repositories/cardRepository.js';
 
 const cardTypes: string[] = [
   'education',
@@ -47,4 +47,14 @@ export function formatCardName(nameOnCard: string) : string {
 
 export async function insertNewCard(newCardData: CardInsertData) : Promise<any> {
   await cardRepository.insert(newCardData);
+}
+
+export async function checkExistentCard(cardId: number) : Promise<Object> {
+  const existentCard = await cardRepository.findCardById(cardId);
+
+  return existentCard;
+}
+
+export function isCardExpired(expirationDate: string) /* : boolean */ {
+  console.log('now: ', dayjs(), 'expDate: ', expirationDate);
 }

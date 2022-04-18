@@ -10,6 +10,6 @@ export default function cardActivationJoiMiddleware(req: Request, res: Response,
   }
 
   res.locals.cardData = activateCardValidation.value;
-  
+
   next();
 }

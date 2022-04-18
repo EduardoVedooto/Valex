@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { cardServices, employeeServices } from '../services/index.js';
+
+dayjs.extend(customParseFormat);
 
 export async function createNewCard(req: Request, res: Response) : Promise<Object> {
   const { cardData } = res.locals;
@@ -47,4 +50,23 @@ export async function createNewCard(req: Request, res: Response) : Promise<Objec
   await cardServices.insertNewCard(cardData);
 
   return res.sendStatus(201);
+}
+
+export async function activateCard(req: Request, res: Response) : Promise<Object> {
+  const cardId: number = parseInt(req.params.id, 10);
+
+  const existentCard = await cardServices.checkExistentCard(cardId);
+  if (!existentCard) {
+    throw { type: 'notFound', message: 'non-existent card' };
+  }
+
+  console.log('now: ', dayjs().format('MM-YY'), 'expDate: ', existentCard['expirationDate']);
+
+  console.log('formatting: ', dayjs('04-27', 'MM-YY', true));
+
+  /*
+  console.log(dayjs().isAfter(`${existentCard['expirationDate']}`, 'day'), 'after?');
+  */
+
+  return res.sendStatus(501);
 }
