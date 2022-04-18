@@ -1,4 +1,3 @@
-
 import { NextFunction, Request, Response } from 'express';
 import { cardDataSchema } from '../schemas/index.js';
 
